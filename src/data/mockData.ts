@@ -1,6 +1,6 @@
 import productsData from './products.json';
 
-const STORE_ID = 'theessentialist-20';
+const STORE_ID = 'charlesdavel-20';
 
 export interface Review {
   name: string;
