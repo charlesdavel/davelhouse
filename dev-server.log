@@ -1,0 +1,12 @@
+nohup: ignoring input
+
+> affili-mart@1.0.0 dev
+> vite --host 0.0.0.0 --port 3000 --host 0.0.0.0 --port 3000
+
+
+  VITE v5.4.21  ready in 193 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: http://169.254.0.21:3000/
+12:04:32 AM [vite] page reload index.html
+12:04:32 AM [vite] hmr update /src/components/Footer.tsx, /src/index.css

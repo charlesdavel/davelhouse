@@ -8,16 +8,12 @@ export default function ProductsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState(searchParams.get('q') || '');
   const [category, setCategory] = useState(searchParams.get('category') || 'all');
-  const [platform, setPlatform] = useState(searchParams.get('platform') || 'all');
   const [sort, setSort] = useState('featured');
   const [showFilters, setShowFilters] = useState(false);
-
-  const platforms = useMemo(() => [...new Set(products.map(p => p.platform))], []);
 
   const filtered = useMemo(() => {
     let result = [...products];
 
-    // Search
     if (search) {
       const q = search.toLowerCase();
       result = result.filter(
@@ -25,17 +21,10 @@ export default function ProductsPage() {
       );
     }
 
-    // Category
     if (category && category !== 'all') {
       result = result.filter(p => p.category === category);
     }
 
-    // Platform
-    if (platform && platform !== 'all') {
-      result = result.filter(p => p.platform === platform);
-    }
-
-    // Sort
     switch (sort) {
       case 'price-asc':
         result.sort((a, b) => a.price - b.price);
@@ -49,12 +38,12 @@ export default function ProductsPage() {
       case 'name':
         result.sort((a, b) => a.name.localeCompare(b.name));
         break;
-      default: // featured
+      default:
         result.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
     }
 
     return result;
-  }, [search, category, platform, sort]);
+  }, [search, category, sort]);
 
   const updateParam = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams);
@@ -79,22 +68,19 @@ export default function ProductsPage() {
   const clearFilters = () => {
     setSearch('');
     setCategory('all');
-    setPlatform('all');
     setSort('featured');
     setSearchParams({});
   };
 
-  const hasFilters = search || category !== 'all' || platform !== 'all';
+  const hasFilters = search || category !== 'all';
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-      {/* Page header */}
       <div className="mb-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">Products Catalog</h1>
-        <p className="mt-1 text-gray-500">Curated premium products across every category</p>
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">The Essential List</h1>
+        <p className="mt-1 text-gray-500">Every product curated, verified, and worth your attention</p>
       </div>
 
-      {/* Search & Sort Bar */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <div className="relative flex-1">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -135,7 +121,6 @@ export default function ProductsPage() {
         </div>
       </div>
 
-      {/* Filters Panel */}
       {showFilters && (
         <div className="card p-4 mb-6">
           <div className="flex flex-wrap items-center gap-4">
@@ -152,19 +137,6 @@ export default function ProductsPage() {
                 ))}
               </select>
             </div>
-            <div>
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Platform</label>
-              <select
-                value={platform}
-                onChange={e => { setPlatform(e.target.value); updateParam('platform', e.target.value); }}
-                className="input-field min-w-[160px]"
-              >
-                <option value="all">All Platforms</option>
-                {platforms.map(p => (
-                  <option key={p} value={p}>{p}</option>
-                ))}
-              </select>
-            </div>
             {hasFilters && (
               <button onClick={clearFilters} className="btn-secondary text-xs self-end">
                 <X className="w-3.5 h-3.5" /> Clear Filters
@@ -174,14 +146,12 @@ export default function ProductsPage() {
         </div>
       )}
 
-      {/* Results count */}
       <p className="text-sm text-gray-500 mb-4">
         Showing <span className="font-semibold text-gray-900">{filtered.length}</span>{' '}
         {filtered.length === 1 ? 'product' : 'products'}
         {hasFilters && ' (filtered)'}
       </p>
 
-      {/* Products grid */}
       {filtered.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filtered.map(product => (

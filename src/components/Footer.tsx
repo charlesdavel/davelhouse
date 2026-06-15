@@ -4,15 +4,9 @@ import { Heart, Gift, Shield, Mail } from 'lucide-react';
 const footerLinks = {
   'Explore': [
     { label: 'Products', to: '/products' },
-    { label: 'Affiliate Programs', to: '/programs' },
-    { label: 'Categories', to: '/products' },
-    { label: 'Featured Deals', to: '/products?featured=true' },
-  ],
-  'For Creators': [
-    { label: 'Join Programs', to: '/programs' },
-    { label: 'Commission Rates', to: '/programs' },
-    { label: 'Top Networks', to: '/programs' },
-    { label: 'Success Stories', to: '/programs' },
+    { label: 'The Essential List', to: '/products' },
+    { label: 'Home Essentials', to: '/products?category=home' },
+    { label: 'Home Office', to: '/products?category=home-office' },
   ],
   'Company': [
     { label: 'About Us', to: '/' },
@@ -36,7 +30,7 @@ export default function Footer() {
               <span className="text-lg font-bold text-white">The<span className="text-brand-400">Essentialist</span></span>
             </Link>
             <p className="text-sm text-gray-400 max-w-sm leading-relaxed">
-              Your curated destination for hand-picked premium products and the most lucrative affiliate programs. Shop smarter. Earn better.
+              Your curated destination for hand-picked premium home essentials. The Essential List — products that earn their place.
             </p>
             <div className="flex items-center gap-4 mt-4 text-xs text-gray-500">
               <span className="flex items-center gap-1.5"><Heart className="w-3.5 h-3.5 text-brand-400" /> Curated with care</span>

@@ -1,16 +1,15 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
-import ProgramsPage from './pages/ProgramsPage';
+import ProductDetailPage from './pages/ProductDetailPage';
 
 function ScrollToTop() {
-  // Scroll to top on route change
-  const { pathname } = window.location;
-  if (pathname) {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, [pathname]);
   return null;
 }
 
@@ -24,7 +23,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/products" element={<ProductsPage />} />
-            <Route path="/programs" element={<ProgramsPage />} />
+            <Route path="/product/:id" element={<ProductDetailPage />} />
           </Routes>
         </main>
         <Footer />
