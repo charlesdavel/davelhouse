@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Heart, Gift, Shield, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
 
 const footerLinks = {
   'Explore': [
@@ -18,36 +18,30 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-gray-200 bg-gray-900 text-gray-300">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        {/* Top section: branding + links */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+    <footer className="border-t border-rose bg-espresso text-white/70">
+      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center gap-2.5 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500 text-white font-bold text-sm">
-                TE
+            <Link to="/" className="flex items-center gap-3 mb-4">
+              <div className="flex h-10 w-10 items-center justify-center border border-terracotta bg-cream-50 text-terracotta font-serif font-bold text-lg">
+                T
               </div>
-              <span className="text-lg font-bold text-white">The<span className="text-brand-400">Essentialist</span></span>
+              <span className="text-xl font-serif font-semibold text-white">The<span className="text-terracotta">Essentialist</span></span>
             </Link>
-            <p className="text-sm text-gray-400 max-w-sm leading-relaxed">
-              Your curated destination for hand-picked premium home essentials. The Essential List — products that earn their place.
+            <p className="text-sm text-white/50 leading-relaxed max-w-sm font-sans">
+              Your curated destination for hand-picked premium home essentials. The Essential List — products that earn their place in your home.
             </p>
-            <div className="flex items-center gap-4 mt-4 text-xs text-gray-500">
-              <span className="flex items-center gap-1.5"><Heart className="w-3.5 h-3.5 text-brand-400" /> Curated with care</span>
-              <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-brand-400" /> Verified programs</span>
-              <span className="flex items-center gap-1.5"><Gift className="w-3.5 h-3.5 text-brand-400" /> Best deals</span>
-            </div>
           </div>
 
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">{title}</h3>
-              <ul className="space-y-2.5">
+              <h3 className="text-[10px] font-sans font-semibold uppercase tracking-[0.15em] text-white/40 mb-4">{title}</h3>
+              <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.label}>
                     <Link
                       to={link.to}
-                      className="text-sm text-gray-400 hover:text-white transition-colors duration-200"
+                      className="text-sm text-white/60 hover:text-white transition-colors duration-200 font-sans"
                     >
                       {link.label}
                     </Link>
@@ -58,16 +52,13 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-10 pt-6 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-gray-500">
-            &copy; {new Date().getFullYear()} The Essentialist. All rights reserved. As an Amazon Associate and affiliate partner, we earn from qualifying purchases.
+        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-white/40 font-sans">
+            &copy; {new Date().getFullYear()} The Essentialist. All rights reserved. As an Amazon Associate, we earn from qualifying purchases.
           </p>
-          <div className="flex items-center gap-3">
-            <a href="mailto:hello@theessentialist.shop" className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-white transition-colors">
-              <Mail className="w-3.5 h-3.5" /> hello@theessentialist.shop
-            </a>
-          </div>
+          <a href="mailto:hello@theessentialist.shop" className="inline-flex items-center gap-2 text-xs text-white/40 hover:text-white transition-colors font-sans">
+            <Mail className="w-3.5 h-3.5" /> hello@theessentialist.shop
+          </a>
         </div>
       </div>
     </footer>

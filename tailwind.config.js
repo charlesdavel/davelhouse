@@ -7,33 +7,61 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: {
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          300: '#86efac',
-          400: '#4ade80',
-          500: '#22c55e',
-          600: '#16a34a',
-          700: '#15803d',
-          800: '#166534',
-          900: '#14532d',
+        cream: {
+          50: '#FDFBF7',
+          100: '#FAF8F5',
+          200: '#F5F0EA',
+          300: '#E8E0D6',
         },
-        accent: {
-          50: '#fefce8',
-          100: '#fef9c3',
-          200: '#fef08a',
-          300: '#fde047',
-          400: '#facc15',
-          500: '#eab308',
-          600: '#ca8a04',
-          700: '#a16207',
-          800: '#854d0e',
-          900: '#713f12',
-        }
+        stone: {
+          50: '#FAF8F5',
+          100: '#F5F2ED',
+        },
+        espresso: {
+          DEFAULT: '#1C1917',
+          light: '#57534E',
+        },
+        blush: {
+          50: '#FDF2EC',
+          100: '#F8E6DE',
+        },
+        rose: {
+          DEFAULT: '#EAD9CF',
+          dark: '#CD7E70',
+        },
+        terracotta: {
+          DEFAULT: '#CD7E70',
+          light: '#E89E8A',
+          dark: '#B06558',
+        },
+        gold: {
+          DEFAULT: '#D4AF37',
+          light: '#E8C950',
+        },
+        brand: {
+          50: '#FDF2EC',
+          100: '#F8E6DE',
+          200: '#F0CBB8',
+          300: '#E8B098',
+          400: '#E89E8A',
+          500: '#CD7E70',
+          600: '#B06558',
+          700: '#8C5146',
+          800: '#6B3E35',
+          900: '#4D2C25',
+        },
       },
       fontFamily: {
+        serif: ['Cormorant Garamond', 'Playfair Display', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+      },
+      fontSize: {
+        'h1': ['3.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        'h2': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
+        'h3': ['1.5rem', { lineHeight: '1.3' }],
+      },
+      letterSpacing: {
+        'editorial': '0.1em',
       },
     },
   },

@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search, SlidersHorizontal, ArrowUpDown, X } from 'lucide-react';
+import { Search, ArrowUpDown, X } from 'lucide-react';
 import { products, categories } from '../data/mockData';
 import { ProductCard } from './HomePage';
 
@@ -9,147 +9,112 @@ export default function ProductsPage() {
   const [search, setSearch] = useState(searchParams.get('q') || '');
   const [category, setCategory] = useState(searchParams.get('category') || 'all');
   const [sort, setSort] = useState('featured');
-  const [showFilters, setShowFilters] = useState(false);
 
   const filtered = useMemo(() => {
     let result = [...products];
-
     if (search) {
       const q = search.toLowerCase();
-      result = result.filter(
-        p => p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q)
-      );
+      result = result.filter(p => p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q));
     }
-
     if (category && category !== 'all') {
       result = result.filter(p => p.category === category);
     }
-
     switch (sort) {
-      case 'price-asc':
-        result.sort((a, b) => a.price - b.price);
-        break;
-      case 'price-desc':
-        result.sort((a, b) => b.price - a.price);
-        break;
-      case 'rating':
-        result.sort((a, b) => b.rating - a.rating);
-        break;
-      case 'name':
-        result.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      default:
-        result.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+      case 'price-asc': result.sort((a, b) => a.price - b.price); break;
+      case 'price-desc': result.sort((a, b) => b.price - a.price); break;
+      case 'rating': result.sort((a, b) => b.rating - a.rating); break;
+      case 'name': result.sort((a, b) => a.name.localeCompare(b.name)); break;
+      default: result.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
     }
-
     return result;
   }, [search, category, sort]);
 
   const updateParam = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams);
-    if (value && value !== 'all') {
-      params.set(key, value);
-    } else {
-      params.delete(key);
-    }
+    if (value && value !== 'all') params.set(key, value);
+    else params.delete(key);
     setSearchParams(params);
   };
 
-  const handleSearch = (val: string) => {
-    setSearch(val);
-    updateParam('q', val);
-  };
-
-  const handleCategory = (val: string) => {
-    setCategory(val);
-    updateParam('category', val);
-  };
-
   const clearFilters = () => {
-    setSearch('');
-    setCategory('all');
-    setSort('featured');
-    setSearchParams({});
+    setSearch(''); setCategory('all'); setSort('featured'); setSearchParams({});
   };
 
   const hasFilters = search || category !== 'all';
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-      <div className="mb-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">The Essential List</h1>
-        <p className="mt-1 text-gray-500">Every product curated, verified, and worth your attention</p>
+    <div className="animate-fade-in mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 py-10 sm:py-16">
+      <div className="mb-10">
+        <h1 className="font-serif text-h1 text-espresso">The Essential List</h1>
+        <p className="text-espresso-light font-sans mt-2 text-lg">Every product curated, verified, and worth your attention</p>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-3 mb-6">
+      <div className="flex flex-col sm:flex-row gap-4 mb-8">
         <div className="relative flex-1">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-rose" />
           <input
             type="text"
             placeholder="Search products..."
             value={search}
-            onChange={e => handleSearch(e.target.value)}
-            className="input-field pl-10 pr-10"
+            onChange={e => { setSearch(e.target.value); updateParam('q', e.target.value); }}
+            className="input-field pl-11 pr-10"
           />
           {search && (
-            <button onClick={() => handleSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+            <button onClick={() => { setSearch(''); updateParam('q', ''); }} className="absolute right-4 top-1/2 -translate-y-1/2 text-rose hover:text-terracotta">
               <X className="w-4 h-4" />
             </button>
           )}
         </div>
-        <div className="flex gap-3">
-          <div className="relative">
-            <ArrowUpDown className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
-            <select
-              value={sort}
-              onChange={e => setSort(e.target.value)}
-              className="input-field pl-10 pr-4 appearance-none cursor-pointer min-w-[150px]"
-            >
-              <option value="featured">Featured</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-              <option value="rating">Highest Rated</option>
-              <option value="name">Name A-Z</option>
-            </select>
-          </div>
-          <button
-            onClick={() => setShowFilters(!showFilters)}
-            className={`btn-secondary px-3 ${showFilters ? 'ring-2 ring-brand-500' : ''}`}
+        <div className="relative">
+          <ArrowUpDown className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-rose pointer-events-none" />
+          <select
+            value={sort}
+            onChange={e => setSort(e.target.value)}
+            className="input-field pl-11 pr-5 appearance-none cursor-pointer min-w-[170px] font-sans text-sm"
           >
-            <SlidersHorizontal className="w-4 h-4" />
-          </button>
+            <option value="featured">Featured</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="rating">Highest Rated</option>
+            <option value="name">Name A-Z</option>
+          </select>
         </div>
       </div>
 
-      {showFilters && (
-        <div className="card p-4 mb-6">
-          <div className="flex flex-wrap items-center gap-4">
-            <div>
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Category</label>
-              <select
-                value={category}
-                onChange={e => handleCategory(e.target.value)}
-                className="input-field min-w-[160px]"
-              >
-                <option value="all">All Categories</option>
-                {categories.map(c => (
-                  <option key={c.id} value={c.id}>{c.name}</option>
-                ))}
-              </select>
-            </div>
-            {hasFilters && (
-              <button onClick={clearFilters} className="btn-secondary text-xs self-end">
-                <X className="w-3.5 h-3.5" /> Clear Filters
-              </button>
-            )}
-          </div>
-        </div>
-      )}
+      {/* Category Pills */}
+      <div className="flex flex-wrap gap-2 mb-8">
+        <button
+          onClick={() => { setCategory('all'); updateParam('category', ''); }}
+          className={`px-4 py-2 text-[10px] font-sans font-medium uppercase tracking-wider border transition-all ${
+            category === 'all'
+              ? 'border-terracotta bg-terracotta text-white'
+              : 'border-rose text-espresso-light hover:border-rose-dark hover:text-espresso'
+          }`}
+        >
+          All
+        </button>
+        {categories.map(c => (
+          <button
+            key={c.id}
+            onClick={() => { setCategory(c.id); updateParam('category', c.id); }}
+            className={`px-4 py-2 text-[10px] font-sans font-medium uppercase tracking-wider border transition-all ${
+              category === c.id
+                ? 'border-terracotta bg-terracotta text-white'
+                : 'border-rose text-espresso-light hover:border-rose-dark hover:text-espresso'
+            }`}
+          >
+            {c.name}
+          </button>
+        ))}
+        {hasFilters && (
+          <button onClick={clearFilters} className="px-4 py-2 text-[10px] font-sans font-medium uppercase tracking-wider border border-rose-dark/30 text-rose-dark hover:bg-blush-50 transition-all">
+            Clear
+          </button>
+        )}
+      </div>
 
-      <p className="text-sm text-gray-500 mb-4">
-        Showing <span className="font-semibold text-gray-900">{filtered.length}</span>{' '}
-        {filtered.length === 1 ? 'product' : 'products'}
-        {hasFilters && ' (filtered)'}
+      <p className="text-sm text-espresso-light/60 font-sans mb-6 border-b border-rose pb-4">
+        Showing <span className="font-medium text-espresso">{filtered.length}</span> {filtered.length === 1 ? 'product' : 'products'}
       </p>
 
       {filtered.length > 0 ? (
@@ -159,11 +124,11 @@ export default function ProductsPage() {
           ))}
         </div>
       ) : (
-        <div className="card p-12 text-center">
-          <div className="text-4xl mb-3">🔍</div>
-          <h3 className="text-lg font-semibold text-gray-900">No products found</h3>
-          <p className="text-sm text-gray-500 mt-1">Try adjusting your search or filters</p>
-          <button onClick={clearFilters} className="btn-primary mt-4">Clear All Filters</button>
+        <div className="border border-rose bg-white p-16 text-center">
+          <div className="text-5xl mb-4">🔍</div>
+          <h3 className="font-serif text-h3 text-espresso">No products found</h3>
+          <p className="text-espresso-light mt-2 font-sans">Try adjusting your search or filters</p>
+          <button onClick={clearFilters} className="btn-primary mt-6 text-xs">Clear All Filters</button>
         </div>
       )}
     </div>

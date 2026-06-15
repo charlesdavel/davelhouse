@@ -7,42 +7,70 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply font-sans;
+    @apply font-sans text-espresso bg-cream-50 antialiased;
+    line-height: 1.7;
+  }
+  h1, h2, h3, h4 {
+    @apply font-serif;
   }
 }
 
 @layer components {
+  .editorial-card {
+    @apply border border-rose bg-white;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+  .editorial-card:hover {
+    @apply border-rose-dark;
+    transform: translateY(-2px);
+  }
+  
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-brand-700 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-none border border-terracotta bg-terracotta px-6 py-3 text-sm font-medium text-white tracking-wider uppercase transition-all duration-200 hover:bg-terracotta-dark hover:border-terracotta-dark;
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition-all duration-200 hover:bg-gray-50 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-none border border-espresso/20 bg-white px-6 py-3 text-sm font-medium text-espresso tracking-wider uppercase transition-all duration-200 hover:bg-cream-50 hover:border-espresso/40;
   }
   .btn-accent {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-accent-400 px-5 py-2.5 text-sm font-bold text-accent-900 shadow-sm transition-all duration-200 hover:bg-accent-500 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-none border border-terracotta bg-terracotta px-6 py-3 text-sm font-medium text-white tracking-wider uppercase transition-all duration-200 hover:bg-terracotta-dark;
   }
-  .card {
-    @apply rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-200 hover:shadow-md;
+  
+  .badge-editorial {
+    @apply inline-flex items-center rounded-none border px-3 py-1 text-[11px] font-medium uppercase tracking-[0.12em];
   }
-  .card-hover {
-    @apply card hover:-translate-y-1 hover:shadow-lg;
+  .badge-low-stock {
+    @apply badge-editorial border-terracotta bg-cream-50 text-terracotta;
   }
+  .badge-restocking {
+    @apply badge-editorial border-espresso bg-stone-50 text-espresso;
+  }
+  .badge-essential {
+    @apply badge-editorial border-rose-dark bg-blush-50 text-terracotta;
+  }
+
   .input-field {
-    @apply w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 shadow-sm transition-all duration-200 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20;
+    @apply w-full rounded-none border border-rose bg-white px-4 py-3 text-sm text-espresso placeholder-espresso-light/50 transition-all duration-200 focus:border-terracotta focus:outline-none;
   }
-  .badge {
-    @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-medium;
+
+  /* Fade-in animation */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
   }
-  .badge-green {
-    @apply badge bg-brand-100 text-brand-800;
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
   }
-  .badge-yellow {
-    @apply badge bg-accent-100 text-accent-800;
+
+  /* Editorial prose for product pages */
+  .editorial-prose {
+    @apply text-espresso-light leading-relaxed;
+    font-size: 1.0625rem;
+    line-height: 1.8;
   }
-  .badge-blue {
-    @apply badge bg-blue-100 text-blue-800;
+  .editorial-prose p {
+    @apply mb-4;
   }
-  .badge-purple {
-    @apply badge bg-purple-100 text-purple-800;
+  .editorial-pullquote {
+    @apply font-serif italic text-h3 text-espresso border-l-2 border-rose pl-6 my-8;
   }
 }
